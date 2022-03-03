@@ -1,0 +1,5 @@
+- name: "verify file"
+  hosts: all
+   stat:
+     path: "/vagrant/demo-project/docker-compose.yml"
+   register: docker_comp_file

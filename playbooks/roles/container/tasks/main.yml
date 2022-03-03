@@ -1,0 +1,4 @@
+---
+# tasks file for roles/container
+
+- include: setup-docker.yml

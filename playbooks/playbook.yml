@@ -1,0 +1,13 @@
+- hosts: container
+  become: yes
+  roles:
+    - common
+    - container
+  tags: container_all
+
+- hosts: loadbalancer
+  become: yes
+  roles:
+    - common
+    - loadbalancer
+  tags: loadbalancer_all
