@@ -1,0 +1,40 @@
+- name: "Copy openssl config"
+  template: src=openssl.cnf.j2 dest="/etc/ssl/openssl.cnf"
+
+- name: "Verify cert folders are present"
+  file:
+    path: "{{ private_key_dir }}"
+    state: directory
+    recurse: yes
+
+- name: "Verify cert folders are present"
+  file:
+    path: "{{ cert_dir }}"
+    state: directory
+    recurse: yes
+
+- name: "Copy csr_req config"
+  template: src=csr_req.conf.j2 dest="/tmp/csr_req.conf"
+
+- name: "Generate certificate"
+  shell: "sudo openssl req -x509 -newkey rsa:4096 -passout pass:Orion123 -keyout /tmp/localhost_encrypt.key -out /tmp/localhost.crt -config /tmp/csr_req.conf -sha256 -days 365"
+
+- name: "Decrypt private key"
+  shell: "openssl rsa -in /tmp/localhost_encrypt.key -out /tmp/localhost.key -passin pass:Orion123"
+
+- name: Verify localhost.key is present
+  file: path=/tmp/localhost.key
+
+- name: Move localhost.key to {{ private_key_dir }}
+  shell: mv /tmp/localhost.key "{{ private_key_path }}" && chmod 600 localhost.key
+
+- name: Delete Encrypted key
+  file:
+    path: "/tmp/localhost_encrypt.key"
+    state: absent
+
+- name: Verify localhost.crt is present
+  file: path=/tmp/localhost.crt
+
+- name: Move localhost.crt to {{ cert_dir }}
+  shell: mv /tmp/localhost.crt "{{ cert_path }}"

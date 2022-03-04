@@ -1,0 +1,8 @@
+docker_port: 5000
+
+cert_country: IT
+cert_state: LO
+cert_location: Milan
+cert_company: BID
+cert_ou: Architets
+cert_cn: loadbalancer.local

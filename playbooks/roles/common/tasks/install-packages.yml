@@ -3,9 +3,7 @@
   apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
 
 - name: "Install Common packages"
-  apt: name={{ item }} state=present
-  with_items:
-   - net-tools
-   - curl
-  tags: installation_common
+  apt: name={{ item }} state=latest
+  loop: ['net-tools', 'curl', 'python3-pip', 'python3-setuptools', 'python3-dev']
+  tags: installation,installation_common
 

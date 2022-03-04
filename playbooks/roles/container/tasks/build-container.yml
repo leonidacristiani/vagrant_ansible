@@ -1,1 +1,7 @@
-- name 
+- name: "Compose container"
+  shell: "docker-compose up -d" 
+  args:
+    chdir: "{{ docker_compose_dir }}"
+
+- name: "Verify container port is listening"
+  wait_for: host={{ ansible_hostname }} port={{ docker_port }} timeout=1

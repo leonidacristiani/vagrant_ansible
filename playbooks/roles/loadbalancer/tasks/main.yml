@@ -1,2 +1,8 @@
 ---
 # tasks file for roles/loadbalancer
+
+- include: install-nginx.yml
+
+- include: configure-nginx.yml
+
+- include: generate-certificate.yml

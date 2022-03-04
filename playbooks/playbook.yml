@@ -1,13 +1,17 @@
-- hosts: container
+- hosts: webstack
   become: yes
   roles:
     - common
+  tags: common
+
+- hosts: containers
+  become: yes
+  roles:
     - container
   tags: container_all
 
 - hosts: loadbalancer
   become: yes
   roles:
-    - common
     - loadbalancer
   tags: loadbalancer_all

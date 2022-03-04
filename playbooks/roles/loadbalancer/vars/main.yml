@@ -1,2 +1,14 @@
 ---
 # vars file for roles/loadbalancer
+
+tls_dir: "/etc/pki/tls"
+
+private_key_dir: "{{ tls_dir }}/private"
+
+private_key_path: "{{ private_key_dir }}/localhost.key"
+
+cert_dir: "{{ tls_dir }}/certs"
+
+csr_path: "{{ cert_dir }}/localhost.csr"
+
+cert_path: "{{ cert_dir }}/localhost.crt"

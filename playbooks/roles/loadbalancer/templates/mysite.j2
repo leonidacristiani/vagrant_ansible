@@ -1,0 +1,15 @@
+#Dynamic Config for server {{ ansible_facts['nodename'] }}
+    upstream webservers {
+	{% for host in groups['containers'] %}
+        server {{ hostvars[host]['ansible_facts']['nodename'] }}:{{ docker_port }};
+    {% endfor %}
+    }
+
+    server {
+        listen 443 ssl; # 'ssl' parameter tells NGINX to decrypt the traffic
+        ssl_certificate     {{ cert_path }}; # The certificate file
+        ssl_certificate_key {{ private_key_path }}; # The private key file
+        location / {   
+                proxy_pass http://webservers;
+        }
+    }
