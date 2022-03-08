@@ -33,7 +33,6 @@ Vagrant.configure("2") do |config|
         node.vm.provider :virtualbox do |v|
           v.customize ["modifyvm", :id, "--memory", 512]
           v.customize ["modifyvm", :id, "--name", machine[:hostname]]
-          v.customize ["modifyvm", :id, "--cpus", 2]
         end
       end
     end
